@@ -1,6 +1,6 @@
 ### Goal
 
-Use your installed skills (especially `news-aggregator-skill` and `last30days`) to fetch approximately 100 latest stories from major tech news sites and communities OTHER than Hacker News.
+Use the bundled tools (especially `news-aggregator-skill` at `{baseDir}/deps/news-aggregator-skill/` and `last30days` at `{baseDir}/deps/last30days/`) to fetch approximately 100 latest stories from major tech news sites and communities OTHER than Hacker News.
 **Critical prohibition:** Absolutely NO Hacker News content — I have a separate pipeline for HN. Including HN here would cause severe content duplication! When using `news-aggregator-skill`, explicitly exclude the HN data source. When using `last30days`, also exclude HN-related results.
 
 From these, filter and deeply decode the content most relevant to me. No shallow summaries — output must be a high-density intelligence briefing.

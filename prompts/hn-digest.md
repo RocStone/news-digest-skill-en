@@ -24,7 +24,7 @@ From the ~100 stories, prioritize the following categories:
 
 To prevent context overload from degrading analysis quality as more articles are processed, the following multi-step pipeline is mandatory:
 
-1. **Fetch bulk data**: Use the `hn` skill to fetch the top 100 Hacker News stories and write the raw list to a temp file (e.g., `tmp/hn_top_100.md`).
+1. **Fetch bulk data**: Use the bundled HN tool (`uv run {baseDir}/deps/hn/scripts/hn.py top -n 100`) to fetch the top 100 Hacker News stories and write the raw list to a temp file (e.g., `tmp/hn_top_100.md`).
 2. **Select high-value stories**: Based on the temp file, select 20 candidate stories using the Selection Criteria above.
 3. **Fetch detailed content and top comments**: Write and run a Python script that uses the Hacker News API (`https://hacker-news.firebaseio.com/v0/item/{id}.json`) to fetch detailed content and top-rated comments for all 20 stories, generating an independent `.md` task file for each story in `tmp/hn_tasks/`.
 4. **Independent parallel analysis (Sub-agents)**: Process the 20 task files using `generalist` sub-agents. Each sub-task receives only the single story's content plus the analysis requirements below, producing an independent deep-analysis report (e.g., `*_out.md`) in a clean context. This ensures each story gets full analytical attention without context pollution.

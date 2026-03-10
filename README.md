@@ -1,6 +1,6 @@
 # News Digest Skill
 
-AI/tech news deep-analysis workflow for Claude Code.
+AI/tech news deep-analysis workflow for Claude Code. All dependencies are bundled — install once, everything works.
 
 ## Features
 
@@ -13,26 +13,27 @@ Each story is analyzed through: Core Facts/Insights, Deep Analysis, Community Di
 ## Installation
 
 ```bash
-npx skills add RocStone/news-digest-skill-en
+git clone https://github.com/RocStone/news-digest-skill-en.git ~/.claude/skills/news-digest-skill-en
 ```
 
-### Dependency Skills
+No extra dependencies to install. The following tools are bundled in `deps/`:
+- [hn](https://clawhub.ai/gchapim/hackernews) (MIT-0) — Hacker News CLI
+- [news-aggregator-skill](https://github.com/cclank/news-aggregator-skill) (MIT) — Multi-source news fetcher
+- [last30days](https://github.com/mvanhorn/last30days-skill) (MIT) — Reddit + X + Web research
 
-Install these before installing this skill:
+### Runtime Requirements
 
-```bash
-npx skills add hn
-npx skills add news-aggregator-skill
-```
+- Python 3.11+
+- [uv](https://docs.astral.sh/uv/) (for the HN tool)
 
 ## Configuration
 
 After installation, edit the "My Background" section in all three prompt files:
 
 ```
-~/.agents/skills/news-digest-skill-en/prompts/hn-digest.md
-~/.agents/skills/news-digest-skill-en/prompts/global-news-digest.md
-~/.agents/skills/news-digest-skill-en/prompts/deep-dive.md
+~/.claude/skills/news-digest-skill-en/prompts/hn-digest.md
+~/.claude/skills/news-digest-skill-en/prompts/global-news-digest.md
+~/.claude/skills/news-digest-skill-en/prompts/deep-dive.md
 ```
 
 Replace the placeholders with your own information (job role, areas of focus, investment preferences, etc.). The AI will use this to generate personalized analysis.
@@ -51,6 +52,14 @@ Additionally, the "Actionable Value" section in `global-news-digest.md` should b
 ## Output Examples
 
 See the [daily-news-digest](https://github.com/RocStone/daily-news-digest) repo for sample outputs.
+
+## Bundled Dependencies
+
+| Tool | Author | License | Original Repo |
+|------|--------|---------|---------------|
+| hn | gchapim | MIT-0 | [clawhub.ai/gchapim/hackernews](https://clawhub.ai/gchapim/hackernews) |
+| news-aggregator-skill | cclank | MIT | [github.com/cclank/news-aggregator-skill](https://github.com/cclank/news-aggregator-skill) |
+| last30days | mvanhorn | MIT | [github.com/mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) |
 
 ## License
 
