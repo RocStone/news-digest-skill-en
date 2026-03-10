@@ -1,9 +1,31 @@
 ### Goal
 
-Use the bundled tools (especially `news-aggregator-skill` at `{baseDir}/deps/news-aggregator-skill/` and `last30days` at `{baseDir}/deps/last30days/`) to fetch approximately 100 latest stories from major tech news sites and communities OTHER than Hacker News.
-**Critical prohibition:** Absolutely NO Hacker News content — I have a separate pipeline for HN. Including HN here would cause severe content duplication! When using `news-aggregator-skill`, explicitly exclude the HN data source. When using `last30days`, also exclude HN-related results.
+Fetch approximately 100 latest stories from major tech news sites and communities OTHER than Hacker News, then filter and deeply decode the content most relevant to me. No shallow summaries — output must be a high-density intelligence briefing.
 
-From these, filter and deeply decode the content most relevant to me. No shallow summaries — output must be a high-density intelligence briefing.
+**Critical prohibition:** Absolutely NO Hacker News content — I have a separate pipeline for HN. Including HN here would cause severe content duplication!
+
+### Execution Pipeline (strictly follow this flow, do NOT show interactive menus)
+
+The following multi-step pipeline must be executed automatically without any user interaction:
+
+1. **Fetch all sources in bulk**: Run the following commands to fetch all non-HN news sources (GitHub Trending, Product Hunt, 36Kr, Tencent News, WallStreetCN, V2EX, Weibo):
+   ```bash
+   python3 {baseDir}/deps/news-aggregator-skill/scripts/fetch_news.py --source github --limit 25 --deep
+   python3 {baseDir}/deps/news-aggregator-skill/scripts/fetch_news.py --source producthunt --limit 15 --deep
+   python3 {baseDir}/deps/news-aggregator-skill/scripts/fetch_news.py --source 36kr --limit 15 --deep
+   python3 {baseDir}/deps/news-aggregator-skill/scripts/fetch_news.py --source tencent --limit 15 --deep
+   python3 {baseDir}/deps/news-aggregator-skill/scripts/fetch_news.py --source wallstreetcn --limit 15 --deep
+   python3 {baseDir}/deps/news-aggregator-skill/scripts/fetch_news.py --source v2ex --limit 15 --deep
+   python3 {baseDir}/deps/news-aggregator-skill/scripts/fetch_news.py --source weibo --limit 15 --deep
+   ```
+   Also use `last30days` to supplement with trending AI topics from Reddit/X/Web:
+   ```bash
+   python3 {baseDir}/deps/last30days/scripts/last30days.py "AI LLM tech trends" --emit=compact
+   ```
+   **Do NOT use `--source hackernews`! Do NOT show interactive menus! Execute commands directly!**
+2. **Save raw data**: Write each source's results to temp files under `tmp/news_raw/` (e.g., `tmp/news_raw/github.json`, `tmp/news_raw/producthunt.json`, etc.).
+3. **Filter high-value stories**: Read all temp files, select the 30 most valuable stories using the Selection Criteria below. GitHub Trending should be presented as a separate table (at least 20 entries), not counted in the 30.
+4. **Deep analysis by section**: Create a separate todo item for each source section, fetching, analyzing, and writing to the final file one section at a time. Every story must receive the full deep analysis specified in the Analysis Requirements below.
 
 ### My Background
 <!-- Replace the content below with your own information -->
@@ -54,4 +76,4 @@ For each selected story, **provide the original article hyperlink**, then perfor
 ### Output
 Report file path: `./news/{YYYY-MM-DD Global News}.md`, adjustable as needed.
 
-**Most important directive!** If there are multiple sections (e.g., GitHub, Product Hunt, Tencent News), create separate todo items for each, fetching news, analyzing, and writing to the file one section at a time. Each todo item must deliver the high-quality analysis required by this document — skimming defeats the purpose. In practice, there should be many sections, because your skills cover many data sources — I want content from ALL of them!
+**Most important directive!** Process by section with separate todo items (GitHub, Product Hunt, 36Kr, Tencent News, WallStreetCN, V2EX, Weibo, Reddit/X). Each todo item must deliver the high-quality deep analysis required by this document — skimming defeats the purpose!
