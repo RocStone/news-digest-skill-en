@@ -23,8 +23,8 @@ The following multi-step pipeline must be executed automatically without any use
    python3 {baseDir}/deps/last30days/scripts/last30days.py "AI LLM tech trends" --emit=compact
    ```
    **Do NOT use `--source hackernews`! Do NOT show interactive menus! Execute commands directly!**
-2. **Save raw data**: Write each source's results to temp files under `tmp/news_raw/` (e.g., `tmp/news_raw/github.json`, `tmp/news_raw/producthunt.json`, etc.).
-3. **Filter high-value stories**: Read all temp files, select the 30 most valuable stories using the Selection Criteria below. GitHub Trending should be presented as a separate table (at least 20 entries), not counted in the 30.
+2. **Save raw data**: Write all source results into a single temp file under `tmp/news_raw/` (e.g., `tmp/news_raw/all_news.json`).
+3. **Filter high-value stories**: Read the temp file, select the 30 most valuable stories using the Selection Criteria below. GitHub Trending should be presented as a separate table (at least 20 entries), not counted in the 30.
 4. **Deep analysis by section**: Create a separate todo item for each source section, fetching, analyzing, and writing to the final file one section at a time. Every story must receive the full deep analysis specified in the Analysis Requirements below.
 
 ### My Background
@@ -46,11 +46,36 @@ From the ~100 stories, quality over quantity — select the 30 most valuable (pr
 4. **AI Best Practices** — Experiences and methodologies for using AI more effectively
 5. **Mental Models** — Thinking frameworks and cognitive models worth learning
 6. **Important**: Do NOT preset keywords — this creates filter bubbles. Read ALL stories first, then filter based on my background. To save tokens, you only need to read titles to judge relevance.
-7. GitHub Trending must be presented as a table, at least 20 entries
+7. GitHub Trending must be presented as a table, at least 20 entries.
+
+### Layout and Structure Requirements (critical)
+
+The final Markdown output must be **strictly organized by source**, **absolutely NO mixing by theme**! Structure must follow:
+
+```markdown
+# YYYY-MM-DD Global Deep Insight Report (excluding Hacker News)
+
+## GitHub Trending
+### Full Trending Overview (Top 20)
+| Repository | Description | Stars |
+... (Table here)
+### GitHub Selected Deep Insights
+#### 1. [Project Name]
+- **Source link**: [link text](URL)
+1. **Core Insight** ... (followed by 6 analysis points)
+
+## 36Kr
+#### 1. [News Title]
+- **Source link**: [link text](URL)
+1. **Core Insight** ... (followed by 6 analysis points)
+
+## Product Hunt
+...and so on
+```
 
 ### Analysis Requirements (strictly follow)
 
-For each selected story, **provide the original article hyperlink**, then perform hardcore deep analysis using this framework:
+For each selected story, **provide the original article hyperlink (format: `- **Source link**: [title](URL)`, NEVER place it in a Header like `###`)**, then perform hardcore deep analysis using this framework:
 1. **Core Insight** — One sentence that cuts to the heart: what fundamental problem does this solve?
 2. **Deep Analysis and Underlying Logic** — Explain the technical trade-offs, why it works, or whose lunch it is eating. No surface-level news rehashing — use first-principles reasoning.
 3. **Intuition Building** — Use the most fitting analogy (e.g., comparing speculative decoding to senior-junior code review) to help me build instant technical intuition.
