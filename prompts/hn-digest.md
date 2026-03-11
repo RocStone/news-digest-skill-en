@@ -48,5 +48,5 @@ For each selected story, fetch its top-rated Hacker News comments and analyze us
 - Prioritize conclusions and insights over information listing
 - For controversial content, explicitly flag uncertainty — do not present opinions as established facts
 - Every story must include hyperlinks in appropriate places (e.g., first line below the heading), but NEVER on headings themselves (h2/h3/h4) — this causes overly long titles when referenced. Important!
-- Output file path: `news/{current date} HackNews.md` (e.g., `2026-03-04 HackNews.md`), adjustable as needed
+- Output file path: `news/{current date} HackerNews.md` (e.g., `2026-03-04 HackerNews.md`), adjustable as needed
 - Explain key abbreviations and technical terms
