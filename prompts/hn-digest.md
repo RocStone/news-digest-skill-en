@@ -48,5 +48,6 @@ For each selected story, fetch its top-rated Hacker News comments and analyze us
 - Prioritize conclusions and insights over information listing
 - For controversial content, explicitly flag uncertainty — do not present opinions as established facts
 - Every story must include hyperlinks in appropriate places (e.g., first line below the heading), but NEVER on headings themselves (h2/h3/h4) — this causes overly long titles when referenced. Important!
+- Every story must include two links below the heading: the first line is the original article URL, the second line is the HN discussion link in the format `HN Discussion: https://news.ycombinator.com/item?id={story_id}`. The story_id comes from the HN API item id field. Neither link should be on the heading itself!
 - Output file path: `news/{current date} HackerNews.md` (e.g., `2026-03-04 HackerNews.md`), adjustable as needed
 - Explain key abbreviations and technical terms
